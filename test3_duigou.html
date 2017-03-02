@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		#box{
+		  width:400px;
+		  height:400px;
+		  margin:0px auto;
+		}
+		#box::after {
+		  content: '';
+		  display:block;
+		  width: 50px;
+		  height: 20px;
+		  border: 5px solid red;
+		  border-top: none;
+		  border-right: none;
+		  -moz-transform: rotate(-45deg);
+		  -ms-transform: rotate(-45deg);
+		  -webkit-transform: rotate(-45deg);
+		  transform: rotate(-45deg);
+		}
+	</style>
+</head>
+<body>
+
+<div id="box">写点什么</div>
+
+</body>
+</html>
