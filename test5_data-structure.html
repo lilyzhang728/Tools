@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	
+	//栈
+	function Stack(){
+		var items = [];
+
+		this.push = function(element){
+			items.push(element);
+		};
+		this.pop = function(){
+			items.pop();
+		};
+		this.peek = function(){
+			return items[items.length-1];
+		};
+		this.isEmpty = function(){
+			return items.length === 0;
+		}
+		this.clear = function(){
+			items=[];
+		}
+		this.size = function(){
+			return items.length;
+		}
+		this.print = function(){
+			console.log(items.toString());
+		}
+	}
+
+
+	//队列
+	function Queue(){
+		var items = [];
+
+		this.enqueue = function(element){
+			items.push(element);
+		};
+		this.dequeue = function(){
+			return items.shift();
+		};
+		this.front = function(){
+			return items[0];
+		};
+		this.isEmpty = function(){
+			return items.length === 0;
+		};
+		this.size = function(){
+			return items.length;
+		};
+	}
+
+	//优先队列（priority值越小，优先级越大）(只有enqueue方法和Queue不同)
+	function PriorityQueue(){
+		var items = [];
+
+		function QueueElement(element,priority){
+			this.element = element;
+			this.priority = priority;
+		}
+
+		this.enqueue = function(element,priority){
+			var queueElement = new QueueElement(element,priority);
+
+			if (this.isEmpty()) {
+				items.push(queueElement);
+			} else{
+				var added = false;
+				for(var i=0;i<items.length;i++){
+					if (queueElement.priority < items[i].priority) {
+						items.splice(i,0,queueElement);
+						added = true;
+						break;
+					}
+				}
+				if (!added) {
+					items.push(queueElement);
+				}
+			}
+		};
+	}
+
+	//循环队列（需要使用Queue创建队列）
+	function hotPotato(nameList,num){
+		var queue = new Queue();
+		for(var i=0;i<nameList.length;i++){
+			queue.enqueue(nameList[i]);
+		}
+
+		var eliminated = '';
+		while(queue.size>1){
+			for(var j=0;j<num;j++){
+				queue.enqueue(queue.dequeue());
+			}
+			eliminated = queue.dequeue();
+		}
+
+		return queue.dequeue();
+	}
+
+
+	//链表
+	function LinkedList(){
+		var Node = function(element){
+			this.element = element;
+			this.next = null;
+		};
+
+		var length = 0;
+		var head = null;
+
+		this.append = function(element){
+			var node = new Node(element);
+			var current;
+			if (head===null) {
+				head = node;
+			} else{
+				current = head;
+
+				while(current.next){
+					current = current.next;
+				}
+				current.next = node;
+			}
+			length++;
+		};
+
+		this.removeAt = function(position){
+			if (position<0 || position>=length) {return null;}
+
+			var current = head,
+				previous,
+				index = 0;
+
+			if (position===0) {
+				head = current.next;
+			} else{
+				while(index++ < position){
+					previous = current;
+					current = current.next;
+				}
+				previous.next = current.next;
+			}
+			length--;
+			return current.element;
+		};
+
+		this.insert = function(position,element){
+			if (position<0 || position>=length) {return false;}
+
+			var node = new Node(element),
+				current = head,
+				previous,
+				index = 0;
+			if (position === 0) {
+				head = node;
+				node.next = current;
+			} else{
+				while(index++ < position){
+					previous = current;
+					current = current.next;
+				}
+				previous.next = node;
+				node.next = current;
+			}
+			length++;
+			return true;
+		};
+
+
+		this.toString = function(){
+			var current = head,
+				string = '';
+
+			while(current){
+				string += current.element;
+				current = current.next;
+			}
+			return string;
+		};
+
+
+		this.indexOf = function(element){
+			var current = head,
+				index = 0;
+
+			while(current){
+				if (element === current.element) {
+					return index;
+				}
+				index++;
+				current = current.next;
+			}
+			return -1;
+		};
+
+		this.remove = function(element){
+			var index = this.indexOf(element);
+			return this.removeAt(index);
+		};
+	}
+
+
+	//双向链表
+	function DoublyLinkedList(){
+		var Node = function(element){
+			this.element = element;
+			this.next = null;
+			this,prev = null;
+		};
+		var length = 0;
+		var head = null;
+		var tail = null;
+
+		this.insert = function(position,element){
+			if (position<0 || position>=length) {return false;}
+
+			var node = new Node(element),
+				current = head,
+				previous,
+				index = 0;
+
+			if (position===0) {
+				if(!head){
+					head = node;
+					tail = node;
+				} else{
+					node.next = current;
+					current.prev = node;
+					head = node;
+				}
+			} else if (position===length) {
+				current = tail;
+				current.next = node;
+				node.prev = current;
+				tail = node;
+			} else{
+				while(index++ < position){
+					previous = current;
+					current = current.next;
+				}
+				node.next = current;
+				previous.next = node;
+				current.prev = node;
+				node.prev = previous;
+			}
+			length++;
+			return true;
+		};
+
+		this.removeAt = function(position){
+			if (position<0 || position>=length) {return false;}
+			var current = head,
+				previous,
+				index = 0;
+
+			if (position===0) {
+				head = current.next;
+				if (length===1) {
+					tail=null;
+				} else{
+					head.prev = null;
+				}
+			} else if (position===length-1) {
+				current = tail;
+				tail = current.prev;
+				tail.next = null;
+			} else{
+				while(index++ < position){
+					previous = current;
+					current = current.next;
+				}
+
+				previous.next = current.next;
+				current.next.prev = previous;
+			}
+			length--;
+			return current.element;
+		}
+	}
+	
+
+</script>
+</body>
+</html>
