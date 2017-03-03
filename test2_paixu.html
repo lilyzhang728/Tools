@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+
+<script type="text/javascript">
+	//冒泡排序，选择排序
+	function ArrayList(){
+		var array = [];
+
+		this.insert = function(item){
+			array.push(item);
+		};
+
+		this.toString = function(){
+			return array.join();
+		};
+
+
+		//公用交换函数
+		function swap(index1,index2){
+			var temp = array[index1];
+			array[index1] = array[index2];
+			array[index2] = temp;
+
+		};
+
+
+		//冒泡排序
+		this.bubbleSort = function(){
+			var length = array.length;
+			for(var i=0;i<length-1;i++){
+				for(var j=0;j<length-1-i;j++){
+					if (array[j]>array[j+1]) {
+						swap(j,j+1);
+					}
+				}
+			}
+		};
+
+
+		//选择排序
+		this.selectionSort = function(){
+			var length = array.length,
+				indexMin;
+			for(var i=0;i<length-1;i++){
+				indexMin = i;
+				for(var j=i;j<length;j++){
+					if (array[j]<array[indexMin]) {
+						indexMin = j;
+					}
+				}
+				if (i!==indexMin) {
+					swap(i,indexMin);
+				}
+			}
+		};
+
+
+		//插入排序
+		this.insertionSort = function(){
+			var length = array.length,
+				j,temp;
+			for(var i=1;i<length;i++){
+				j = i;
+				temp = array[i];  
+				while(j>0 && array[j-1]>temp){
+					array[j] = array[j-1];
+					j--;
+				}
+				array[j] = temp;
+			}
+		};
+
+
+		//归并排序
+		this.mergeSort = function(){
+			array = mergeSortRec(array);
+		};
+
+		var mergeSortRec = function(array){
+			var length = array.length;
+			if (length===1) {return array;}
+			var mid = Math.floor(length/2),
+				left = array.slice(0,mid),
+				right = array.slice(mid,length);
+
+			return merge(mergeSortRec(left),mergeSortRec(right));
+		};
+
+		var merge = function(left,right){
+			var result = [],
+				il = 0,
+				ir = 0;
+			while(il<left.length && ir<right.length){
+				if (left[il] < right[il]) {
+					result.push(left[il++]);
+				} else{
+					result.push(right[ir++]);
+				}
+			}
+			while(il<left.length){
+				result.push(left[il++]);
+			}
+			while(ir<right.length){
+				result.push(right[ir++]);
+			}
+			return result;
+		};
+
+
+		//快速排序
+		this.quickSort = function(){
+			array = quick(array);
+		};	
+
+		function quick(arr){
+			if (arr.length<=1) {return arr;}
+			var pivotIndex = Math.floor(arr.length/2);
+			var pivot = arr.splice(pivotIndex,1)[0],
+				left = [], right = [];
+			for (var i = 0; i < arr.length; i++) {
+				if(arr[i]<pivot){
+					left.push(arr[i]);
+				} else{
+					right.push(arr[i]);
+				}
+			}
+
+			return quick(left).concat([pivot],quick(right));
+		}
+	}
+
+
+	//test
+	//产生一个降序数组
+	function creatNonSortedArray(size){
+		var array = new ArrayList();
+		for(var i=size;i>0;i--){
+			array.insert(i);
+		}
+		return array;
+	}
+
+	//测试排序
+	var array = creatNonSortedArray(5);
+	console.log(array.toString());
+	array.quickSort();
+	console.log(array.toString());
+
+
+
+</script>
+
+</body>
+</html>
