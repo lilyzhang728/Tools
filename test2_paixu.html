@@ -29,7 +29,7 @@
 		};
 
 
-		//冒泡排序
+		//冒泡排序(两个循环 | 相邻两个比较以把最大的移到最右边)
 		this.bubbleSort = function(){
 			var length = array.length;
 			for(var i=0;i<length-1;i++){
@@ -42,7 +42,7 @@
 		};
 
 
-		//选择排序
+		//选择排序(两个循环 | 先默认本次循环最前面是最小值，循环找出最小值与最前面默认最小值swap)
 		this.selectionSort = function(){
 			var length = array.length,
 				indexMin;
@@ -60,7 +60,7 @@
 		};
 
 
-		//插入排序
+		//插入排序(两次循环 | 为每一项找自己的位置，逐一和前面的项比较，若前面的项比自己大，自己的位置给前面的项，依次找下去，找到它的位置再赋值，循环从1开始，因为第一项就一项不用排序)
 		this.insertionSort = function(){
 			var length = array.length,
 				j,temp;
@@ -76,7 +76,7 @@
 		};
 
 
-		//归并排序
+		//归并排序(递归分成小数组，对小数组排序，再逐渐合并成大数组)
 		this.mergeSort = function(){
 			array = mergeSortRec(array);
 		};
@@ -112,7 +112,7 @@
 		};
 
 
-		//快速排序
+		//快速排序(先定中间量为主元，把比他小的放左边小数组，大的放右边小数组，再分别对左右两个小数组递归做同样的事)
 		this.quickSort = function(){
 			array = quick(array);
 		};	
