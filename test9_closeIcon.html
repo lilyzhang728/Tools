@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+	/* basic style */
+	.close {
+	    /* still bad on picking color */
+	    background: orange;
+	    color: red;
+	    /* make a round button */
+	    border-radius: 12px;
+	    /* center text */
+	    line-height: 20px;
+	    text-align: center;
+	    height: 20px;
+	    width: 20px;
+	    font-size: 18px;
+	    padding: 1px;
+	}
+	/* use cross as close button */
+	.close::before {
+	    content: "\2716";
+	}
+	/* place the button on top-right */
+	.close {
+	    top: -10px;
+	    right: -10px;
+	    position: absolute;
+	}
+	</style>
+</head>
+<body>
+<div style="height: 100px; width: 100px; border: 1px solid black; position: relative;">
+    <span class="close"></span>
+</div>
+</body>
+</html>
