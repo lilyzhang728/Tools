@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<style type="text/css">
+
+/* 	.container{
+	
+	position: absolute;  top: 50%;
+	left: 50%;
+	margin: -75px 0 0 -250px; width: 500px;  height: 150px;  padding: 8px;  border: 8px solid #E8E9F7;  background-color: white;  z-index:1002;  overflow: auto;}
+
+}
+.head{
+	position: relative;
+	height: 30%;
+	width: 100%;
+}
+.content{
+	height: 40%;
+	width: 100%;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}
+.mask{
+	position: absolute;  
+	top: 0%;  
+	left: 0%;  
+	width: 100%;  
+	height: 100%;  
+	background-color: black;  
+	z-index:1001;  
+	-moz-opacity: 0.7;  
+	opacity:.70;  
+	filter: alpha(opacity=70);
+}
+.icon{		
+position: absolute;
+top: 4px;
+right: 10px;
+width: 20px;
+height: 20px;
+line-height: 20px;
+text-align: center;
+background-color: #000;
+font-size: 18px;
+padding:1px;
+color: #fff;
+border-radius: 50%;
+}
+.icon::after{
+	content: "\2716";
+}
+
+.footer{
+	height: 30%;
+	width: 100%;
+	text-align: center;
+	line-height: 50px;
+	
+}
+button{
+	margin: 0 20px;
+} */
+
+</style>
+<body>
+	<!-- <div class="mask"></div>
+	
+	<div class="container">
+	
+	<div class="head"><span class="head-word">对话框头部</span><span class="icon"></span></div>
+	<div class="content">对话框内容</div>
+	<div class="footer"><button>确认</button><button>取消</button></div>
+	
+	
+	</div> -->
+
+<script type="text/javascript">
+//构建dom结构
+	var container = document.createElement("div");
+	container.className = "container";
+	container.style="position: absolute;  top: 50%;left: 50%;margin: -75px 0 0 -250px; width: 500px;  height: 150px;  padding: 8px;  border: 8px solid #E8E9F7;  background-color: white;  z-index:1002;  overflow: auto;}";
+	document.body.appendChild(container);
+
+	var head = document.createElement("div");
+	head.className = "head";
+	head.style = "position: relative;height: 30%;width: 100%";
+	container.appendChild(head);
+
+	var headword = document.createElement("span");
+	headword.appendChild(document.createTextNode("对话框头部"));
+	head.appendChild(headword);
+
+	var icon = document.createElement("span");
+	icon.className = "icon";
+	icon.style = "position: absolute;top: 4px;right: 10px;width: 20px;height: 20px;line-height: 20px;text-align: center;background-color: #000;font-size:18px;padding:1px;color: #fff;border-radius: 50%;";
+	//icon::after.style= "content: "\2716";";
+	document.styleSheets[0].insertRule('.icon::after{content: "\2716"}',0);
+	head.appendChild(icon);
+
+	var content = document.createElement("div");
+	content.className = "content";
+	content.style = "	height: 40%;width: 100%;border-top: 1px solid #ccc;border-bottom: 1px solid #ccc;";
+	content.appendChild(document.createTextNode("对话框内容"));
+	container.appendChild(content);
+
+	var footer = document.createElement("div");
+	footer.className = "footer";
+	footer.style = "height: 30%;width: 100%;text-align: center;line-height: 50px;";
+	container.appendChild(footer);
+
+	var button1 = document.createElement("button");
+	var button2 = document.createElement("button");
+	button1.appendChild(document.createTextNode("确认"));
+	button2.appendChild(document.createTextNode("取消"));
+	button1.style = "margin: 0 20px;";
+	button2.style = "margin: 0 20px;";
+	footer.appendChild(button1);
+	footer.appendChild(button2);
+
+
+	var mask = document.createElement("div");
+	mask.className = "mask";
+	mask.style="position: absolute;  top: 0%;  left: 0%;  width: 100%;  height: 100%;  background-color: black;  z-index:1001;  -moz-opacity: 0.7;  opacity:.70;  filter: alpha(opacity=70);";
+	document.body.appendChild(mask);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//添加事件
+	var yes = document.getElementsByTagName("button")[0];
+	yes.addEventListener("click",hideDiv,false);
+	yes.addEventListener("click",hideMask,false);
+
+
+	function hideDiv(){
+		var div = document.getElementsByClassName("container")[0];
+		div.style = "display:none";
+	}
+
+	function hideMask(){
+		var mask = document.getElementsByClassName("mask")[0];
+		mask.style = "display:none";
+	}
+
+	var close = document.getElementsByClassName("icon")[0];
+	close.addEventListener("click",hideDiv,false);
+	close.addEventListener("click",hideMask,false);
+     
+</script>
+
+</body>
+</html>
