@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	.main{
+		float: left;
+		width: 100%;
+		height: 300px;
+		background-color: rgba(255, 0, 0, .5);
+	}
+	.sub{
+		width: 200px;
+		float: left;
+		height: 300px;
+		margin-left: -100%;	
+		background-color: rgba(0, 255, 0, .5);
+	}
+	.extra {
+		float: left;
+		width: 180px;
+		height: 300px;
+		margin-left: -180px;
+		background-color: rgba(0, 0, 255, .5);
+	}
+	.container {
+		padding-left: 210px;
+		padding-right: 190px;
+	}
+	.sub {
+		position: relative;
+		left: -210px;
+	}
+	.extra {
+		position: relative;
+		right: -190px;
+	}
+	body {
+		min-width: 600px; /* 2*sub + extra */
+	}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="main"></div>
+	<div class="sub"></div>
+	<div class="extra"></div>
+</div>
+</body>
+</html>
