@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+//一次最多跳n级
+	function jump(sum,n){
+		var result;
+
+		if (sum<(n+1)) {
+			return Math.pow(2,(sum-1));
+		} else{	
+			for(var i=1;i<=n;i++){
+				result += jump(sum-i);
+			}
+		}
+
+		return result;
+	}
+
+	alert(jump(3,3))
+
+
+</script>
+</body>
+</html>
