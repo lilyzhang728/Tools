@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script type="text/javascript">
+	//手写系列
+	
+	//手写组合原型模式和构造函数模式
+	function Person(name,age){
+		this.name = name;
+		this.age = age;
+		this.friends = ["aaa","bbb","ccc"];
+	}
+
+	Person.prototype = {
+		sayName:function(){
+			alert(this.name);
+		}
+	};
+
+
+	//手写继承(使用原型链)
+	function SuperType(){
+		this.property = true;
+	}
+	SuperType.prototype.getSuperValue = function(){
+		return this.property;
+	};
+	function SubType(){
+		this.subproperty = false;
+	};
+	SubType.prototype = new SuperType();
+
+	SubType.prototype.getSubValue = function(){
+		return this.subproperty;
+	};
+
+
+	//手写继承(组合继承)
+	function SuperType(name){
+		this.name = name;
+	}
+	SuperType.prototype.sayName = function(){
+		alert(this.name);
+	}
+
+	function SubType(name,age){
+		SuperType.call(this,name);
+		this.age = age;
+	};
+
+	SubType.prototype = new SuperType();
+
+
+	//未完
+	
+
+	//手写闭包
+	function foo(){
+		var a=2;
+		function bar(){
+			console.log(a);
+		}
+		return bar;
+	}
+
+	var baz = foo();
+	baz();
+
+
+</script>
+</body>
+</html>
