@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	thead{
+		background-color: grey;
+	}
+	</style>
+</head>
+<body>
+<table border="1" width="50%" cellspacing="0">
+	<thead>
+		<tr>
+			<td>姓名</td>
+			<td>力量</td>
+			<td>敏捷</td>
+			<td>智力</td>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>德鲁伊</td>
+			<td>17</td>
+			<td>24</td>
+			<td>13</td>
+		</tr>
+		<tr>
+			<td>月之骑士</td>
+			<td>15</td>
+			<td>22</td>
+			<td>16</td>
+		</tr>
+		<tr>
+			<td>众神之王</td>
+			<td>19</td>
+			<td>15</td>
+			<td>20</td>
+		</tr>
+		<tr>
+			<td>流浪剑客</td>
+			<td>23</td>
+			<td>15</td>
+			<td>14</td>
+		</tr>
+	</tbody>
+</table>
+
+
+<script type="text/javascript">
+	function sortTable(table){
+	var thead = table.getElementsByTagName("thead")[0];
+	var thead_td = thead.getElementsByTagName("td");
+
+	//获取所有行
+	var tbody = table.tBodies[0];
+	var tbody_rows = tbody.rows;
+	var rows = Array.prototype.slice.call(tbody_rows,0);
+
+	for(let n=0;n<thead_td.length;n++){
+		
+			var flag=false;
+			thead_td[n].addEventListener("click",sort,false);
+
+
+			function sort(){
+				rows.sort(function(row1,row2){
+					var cell1=row1.getElementsByTagName("td")[n];
+					var cell2=row2.getElementsByTagName("td")[n];
+					var val1=cell1.childNodes[0].nodeValue;
+					var val2=cell2.childNodes[0].nodeValue;
+					if (val1<val2) {
+						return -1;
+					} else if(val1>val2){
+						return 1;
+					} else{
+						return 0;
+					}
+				});
+
+				if (flag) {
+					rows.reverse();
+				}
+
+				for(var j=0;j<rows.length;j++){
+					tbody.appendChild(rows[j]);
+				}
+				flag = !flag;
+			};
+		
+
+	}
+
+
+
+}
+
+window.onload = function(){
+	var table = document.getElementsByTagName("table")[0];
+	sortTable(table);
+}
+</script>
+</body>
+</html>
