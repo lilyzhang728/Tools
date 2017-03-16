@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	input{
+	    width: 100%; 
+	    font-size: 16px; /* 加大字体 */
+	    padding: 12px 20px 12px 40px; 
+	    border: 1px solid #ddd; 
+	    margin-bottom: 12px; 
+		font-family:arial;
+	}
+	#myUL{
+		list-style-type: none;
+		padding: 0;
+		margin: 0;
+	}
+	#myUL li a{
+		border: 1px solid #ddd;
+		background-color: #f6f6f6; 
+		padding: 12px;
+		text-decoration: none;
+		font-size: 18px;
+		color: black;
+		display: block;
+	}
+	#myUL li a.header{
+		background-color: #e2e2e2; 
+    	cursor: default; 
+	}
+	#myUL li a:hover:not(.header){
+	    background-color: #eee;	
+	}
+	.tip{
+		display: none;
+	}
+
+	#myUL{
+		display: ;
+	}
+
+
+
+	</style>
+
+</head>
+<body>
+
+<input type="text" id="myInput" placeholder="搜索..." onkeyup="myFunction()" oninput="functionWrap()" onkeydown="enter(event)"  autofocus>
+<div class="tip"></div>
+<ul id="myUL">
+  <li><a href="#" class="header">A</a></li>
+  <li><a href="#">Adele</a></li>
+  <li><a href="#">Agnes</a></li>
+ 
+  <li><a href="#" class="header">B</a></li>
+  <li><a href="#">Billy</a></li>
+  <li><a href="#">Bob</a></li>
+ 
+  <li><a href="#" class="header">C</a></li>
+  <li><a href="#">Calvin</a></li>
+  <li><a href="#">Christina</a></li>
+  <li><a href="#">Cindy</a></li>
+</ul>
+
+<script type="text/javascript">
+
+var input = document.getElementById("myInput");                
+var value = input.value;
+
+function functionWrap(){
+	limit();
+	interval();
+}
+
+//搜索提示框
+//onkeyup事件触发时可以获得刚输入的内容
+function myFunction(){
+	var filter,ul,li,a,i;
+	filter=value.toUpperCase();
+	ul=document.getElementById("myUL");
+	li=document.getElementsByTagName("li");
+	for(var i=0;i<li.length;i++){
+		var content = li[i].getElementsByTagName("a")[0].innerHTML.toUpperCase();
+		if (content.indexOf(filter)>-1) {
+			li[i].style.display="";  //li默认display为block
+		} else{
+			li[i].style.display="none";
+		}
+	}
+	
+}
+
+//输入限制，不超过三个字符 
+//不用onkeyup是会导致显示出来有删掉的闪动画面，且不能检测鼠标粘贴的情况，oninput事件可以检测一切value值的变化
+//oninput缺点，中文输入法干扰键盘
+function limit(){
+	var input = document.getElementById("myInput");	 //这两行不能写在函数外面，否则获取不到。
+	var value = input.value;
+
+	if (value.length>5) {
+		alert("overflow!");
+		document.getElementById("myInput").value = value.substr(0,3)  //这里也不能用value变量接收，否则不能改变DOM
+	} else{
+		var extra = 5- value.length;
+		document.getElementsByClassName("tip")[0].innerHTML="剩余"+extra+"个字"; //innerHTML用法：把要插入的内容或者标签直接写入引号里面
+		document.getElementsByClassName("tip")[0].style.display="block";
+	}
+
+//输入类型限制todo
+//
+}
+
+//检测回车键
+//onkeydown事件能防止中文输入法下回车输入英文字符的情况，此刻的回车就是单纯输入回车
+//onkeyup事件会分不清
+function enter(e){
+	if (e.keyCode==13) {
+		alert("enter!");
+	}
+}
+
+
+//检测输入字符间的时间间隔
+function interval(){
+	var times;
+	var ul = document.getElementById("myUL");
+	clearTimeout(times);
+	times = setTimeout(function(){
+		//ul.style.display="block";
+	},1000);
+}
+</script>
+</body>
+</html>
